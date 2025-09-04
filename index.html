@@ -1,369 +1,361 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>女性プロフィール登録＜demo＞（ローカル保存）</title>
-  <style>
-    /* ===== Pastel / Cute theme ===== */
-    :root{
-      --bg:#fff7fb;           /* very light pink */
-      --card:#ffffff;
-      --text:#2b2b2b;
-      --muted:#6b7280;
-      --brand:#ff8fb1;        /* pink */
-      --brand-deep:#ff6f9e;
-      --border:#f1e6ee;
-      --chip:#fff0f6;
-      --chiptext:#5b5b5b;
-      --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
-    body{
-      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 600px at -10% -20%, #ffe2ee 0%, transparent 60%),
-        radial-gradient(900px 500px at 110% -10%, #ffe9f2 0%, transparent 60%),
-        var(--bg);
-      color:var(--text);
-    }
-    .container{max-width:960px;margin:0 auto;padding:24px}
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:0 8px 24px rgba(255,143,177,.15);
-    }
-    .title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin:6px 0 2px}
-    .subtitle{color:var(--muted);font-size:13px;margin:0 0 16px}
-    .row{display:grid;grid-template-columns:1fr 1fr; gap:12px}
-    @media (max-width:800px){ .row{grid-template-columns:1fr} }
-
-    label{display:block;font-weight:700;margin:10px 0 6px}
-    input,select,textarea{
-      width:100%; background:#fff; color:var(--text);
-      border:1.5px solid #f3e3ed; border-radius:14px; padding:12px 12px; outline:none; font-size:14px;
-      transition:border-color .15s, box-shadow .15s;
-    }
-    input:focus,select:focus,textarea:focus{
-      border-color:var(--brand); box-shadow:0 0 0 4px rgba(255,143,177,.16);
-    }
-    textarea{min-height:110px;resize:vertical}
-    input::placeholder,textarea::placeholder{color:#9aa4b2}
-
-    .help{color:var(--muted); font-size:12px; margin-top:6px}
-    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
-    .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:var(--chip); color:var(--chiptext); font-size:12px; border:1px solid var(--border)}
-    .chip button{all:unset; cursor:pointer; opacity:.8}
-
-    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; align-items:center}
-    .btn{
-      appearance:none; border:1.5px solid #f3e3ed; background:#fff;
-      color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700;
-      box-shadow:0 4px 14px rgba(255,143,177,.12);
-    }
-    .btn.primary{
-      background:linear-gradient(180deg,var(--brand),var(--brand-deep));
-      border-color:#ff6f9e;
-      color:#000 !important;   /* ご要望：保存ボタン文字を黒に */
-    }
-    .btn.ghost{background:transparent}
-
-    .pill{border:1px solid var(--border); padding:6px 10px; border-radius:999px; font-size:12px; background:#fff0f6}
-    .footer{color:var(--muted);font-size:12px;margin:16px 0 24px}
-    .badge{font-size:11px; color:#a85574; border:1px dashed #f1c3d3; padding:4px 8px; border-radius:8px; background:#fff5f9}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 18px}
-    .inline{display:inline-flex;gap:8px;align-items:center}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>女性プロフィール登録＜demo＞（ローカル保存）</title>
+  <style>
+    /* ===== Pastel / Cute theme ===== */
+    :root{
+      --bg:#fff7fb;           /* very light pink */
+      --card:#ffffff;
+      --text:#2b2b2b;
+      --muted:#6b7280;
+      --brand:#ff8fb1;        /* pink */
+      --brand-deep:#ff6f9e;
+      --border:#f1e6ee;
+      --chip:#fff0f6;
+      --chiptext:#5b5b5b;
+      --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at -10% -20%, #ffe2ee 0%, transparent 60%),
+        radial-gradient(900px 500px at 110% -10%, #ffe9f2 0%, transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    .container{max-width:960px;margin:0 auto;padding:24px}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 8px 24px rgba(255,143,177,.15);
+    }
+    .title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin:6px 0 2px}
+    .subtitle{color:var(--muted);font-size:13px;margin:0 0 16px}
+    .row{display:grid;grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width:800px){ .row{grid-template-columns:1fr} }
+    label{display:block;font-weight:700;margin:10px 0 6px}
+    input,select,textarea{
+      width:100%; background:#fff; color:var(--text);
+      border:1.5px solid #f3e3ed; border-radius:14px; padding:12px 12px; outline:none; font-size:14px;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    input:focus,select:focus,textarea:focus{
+      border-color:var(--brand); box-shadow:0 0 0 4px rgba(255,143,177,.16);
+    }
+    textarea{min-height:110px;resize:vertical}
+    input::placeholder,textarea::placeholder{color:#9aa4b2}
+    .help{color:var(--muted); font-size:12px; margin-top:6px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:var(--chip); color:var(--chiptext); font-size:12px; border:1px solid var(--border)}
+    .chip button{all:unset; cursor:pointer; opacity:.8}
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; align-items:center}
+    .btn{
+      appearance:none; border:1.5px solid #f3e3ed; background:#fff;
+      color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700;
+      box-shadow:0 4px 14px rgba(255,143,177,.12);
+    }
+    .btn.primary{
+      background:linear-gradient(180deg,var(--brand),var(--brand-deep));
+      border-color:#ff6f9e;
+      color:#000 !important;   /* 保存ボタン文字を黒に */
+    }
+    .btn.ghost{background:transparent}
+    .badge{font-size:11px; color:#a85574; border:1px dashed #f1c3d3; padding:4px 8px; border-radius:8px; background:#fff5f9}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 18px}
+    .inline{display:inline-flex;gap:8px;align-items:center}
+  </style>
 </head>
 <body>
-  <header class="container">
-    <div class="toolbar">
-      <div>
-        <!-- ☆アイコンは削除 -->
-        <div class="title">女性プロフィール登録＜demo＞</div>
-        <p class="subtitle">※すべて <strong>あなたの端末のブラウザにのみ保存</strong> されます（localStorage）。サーバ送信は行いません。</p>
-      </div>
-      <div class="inline">
-        <button class="btn" id="demoFill">デモデータを入れる</button>
-        <button class="btn" id="exportBtn" title="JSONとして書き出し">JSON書き出し</button>
-        <label class="btn ghost" for="importFile">JSON読み込み</label>
-        <input id="importFile" type="file" accept="application/json" class="sr-only" />
-      </div>
-    </div>
-  </header>
+  <header class="container">
+    <div class="toolbar">
+      <div>
+        <!-- ☆アイコンは削除 -->
+        <div class="title">女性プロフィール登録＜demo＞</div>
+        <p class="subtitle">※すべて <strong>あなたの端末のブラウザにのみ保存</strong> されます（localStorage）。サーバ送信は行いません。</p>
+      </div>
+      <div class="inline">
+        <button class="btn" id="demoFill">デモデータを入れる</button>
+        <button class="btn" id="exportBtn" title="JSONとして書き出し">JSON書き出し</button>
+        <label class="btn ghost" for="importFile">JSON読み込み</label>
+        <input id="importFile" type="file" accept="application/json" class="sr-only" />
+      </div>
+    </div>
+  </header>
 
-  <main class="container" style="gap:20px">
-    <section class="card">
-      <h2 class="title">プロフィール入力</h2>
-      <p class="subtitle">最低限：ニックネーム / ひとことPR / 担当ポジション / 業界1つ以上</p>
+  <main class="container" style="gap:20px">
+    <section class="card">
+      <h2 class="title">プロフィール入力</h2>
+      <p class="subtitle">最低限：ニックネーム / ひとことPR / 担当ポジション / 業界1つ以上</p>
 
-      <form id="profileForm" autocomplete="off">
-        <label>ニックネーム（公開名）
-          <input required id="nickname" placeholder="例）Aki（匿名可）" />
-        </label>
+      <form id="profileForm" autocomplete="off">
+        <label>ニックネーム（公開名）
+          <input required id="nickname" placeholder="例）Aki（匿名可）" />
+        </label>
 
-        <label>ひとことPR
-          <input required id="headline" placeholder="例）元IR責任者｜上場準備・資金調達サポート" />
-        </label>
+        <label>ひとことPR
+          <input required id="headline" placeholder="例）元IR責任者｜上場準備・資金調達サポート" />
+        </label>
 
-        <label>出身大学（任意）
-          <input id="university" placeholder="例）〇〇大学（学部・学科 任意）" />
-        </label>
+        <label>出身大学（任意）
+          <input id="university" placeholder="例）〇〇大学（学部・学科 任意）" />
+        </label>
 
-        <div class="row">
-          <div>
-            <label>担当ポジション
-              <input id="roleInput" placeholder="例）PR/IR, 戦略, 人事BP など" />
-            </label>
-            <div id="roles" class="chips"></div>
-            <!-- （複数可・Enterで追加）の注記と例はカット -->
-          </div>
-          <div>
-            <label>主な業界
-              <input id="industryInput" placeholder="例）SaaS, フィンテック など" />
-            </label>
-            <div id="industries" class="chips"></div>
-          </div>
-        </div>
+        <div class="row">
+          <div>
+            <label>担当ポジション
+              <input id="roleInput" placeholder="例）PR/IR, 戦略, 人事BP など" />
+            </label>
+            <div id="roles" class="chips"></div>
+          </div>
+          <div>
+            <label>主な業界
+              <input id="industryInput" placeholder="例）SaaS, フィンテック など" />
+            </label>
+            <div id="industries" class="chips"></div>
+          </div>
+        </div>
 
-        <label>実績（具体的な数値や規模が望ましい）
-          <textarea id="achievements" placeholder="例）シリーズBで10億円調達を主導／上場審査で開示資料を統括 など"></textarea>
-        </label>
+        <label>実績（具体的な数値や規模が望ましい）
+          <textarea id="achievements" placeholder="例）シリーズBで10億円調達を主導／上場審査で開示資料を統括 など"></textarea>
+        </label>
 
-        <div class="row">
-          <div>
-            <label>経験年数（目安）
-              <div class="row" style="grid-template-columns:1fr 1fr; gap:8px">
-                <input id="expMin" type="number" min="0" placeholder="最小 年" />
-                <input id="expMax" type="number" min="0" placeholder="最大 年" />
-              </div>
-            </label>
-          </div>
-          <div>
-            <label>稼働（時間/週）
-              <input id="hours" type="number" min="1" max="80" placeholder="例）10" />
-              <div class="help">補足（夜間のみ・土日対応など）は下の"メモ"へ</div>
-            </label>
-          </div>
-        </div>
+        <div class="row">
+          <div>
+            <label>経験年数（目安）
+              <div class="row" style="grid-template-columns:1fr 1fr; gap:8px">
+                <input id="expMin" type="number" min="0" placeholder="最小 年" />
+                <input id="expMax" type="number" min="0" placeholder="最大 年" />
+              </div>
+            </label>
+          </div>
+          <div>
+            <label>稼働（時間/週）
+              <input id="hours" type="number" min="1" max="80" placeholder="例）10" />
+              <div class="help">補足（夜間のみ・土日対応など）は下の"メモ"へ</div>
+            </label>
+          </div>
+        </div>
 
-        <div class="row">
-          <div>
-            <label>働き方
-              <select id="workStyle">
-                <option value="remote">リモート中心</option>
-                <option value="hybrid">ハイブリッド</option>
-                <option value="onsite">オンサイト中心</option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>活動エリア（任意）
-              <input id="locationPref" placeholder="例）東京 / 名古屋 / フルリモート" />
-            </label>
-          </div>
-        </div>
+        <div class="row">
+          <div>
+            <label>働き方
+              <select id="workStyle">
+                <option value="remote">リモート中心</option>
+                <option value="hybrid">ハイブリッド</option>
+                <option value="onsite">オンサイト中心</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>活動エリア（任意）
+              <input id="locationPref" placeholder="例）東京 / 名古屋 / フルリモート" />
+            </label>
+          </div>
+        </div>
 
-        <!-- スキル欄は不要のためカット -->
+        <div class="row">
+          <div>
+            <label>希望報酬レンジ（時給/日給/固定の目安）
+              <div class="row" style="grid-template-columns:1fr 1fr; gap:8px">
+                <input id="compMin" type="number" min="0" placeholder="最小（円）" />
+                <input id="compMax" type="number" min="0" placeholder="最大（円）" />
+              </div>
+            </label>
+          </div>
+          <div>
+            <label>通貨
+              <select id="currency">
+                <option>JPY</option><!-- 円のみ -->
+              </select>
+            </label>
+          </div>
+        </div>
 
-        <div class="row">
-          <div>
-            <label>希望報酬レンジ（時給/日給/固定の目安）
-              <div class="row" style="grid-template-columns:1fr 1fr; gap:8px">
-                <input id="compMin" type="number" min="0" placeholder="最小（円）" />
-                <input id="compMax" type="number" min="0" placeholder="最大（円）" />
-              </div>
-            </label>
-          </div>
-          <div>
-            <label>通貨
-              <select id="currency">
-                <option>JPY</option><!-- 円のみ -->
-              </select>
-            </label>
-          </div>
-        </div>
+        <label>SNS等のリンク（ある方のみ）
+          <input id="linkInput" placeholder="例）X/Instagram/ポートフォリオURL" />
+        </label>
+        <div id="links" class="chips"></div>
 
-        <label>SNS等のリンク（ある方のみ）
-          <input id="linkInput" placeholder="例）X/Instagram/ポートフォリオURL" />
-        </label>
-        <div id="links" class="chips"></div>
+        <div class="row">
+          <div>
+            <label>プロフィール画像（任意・ローカルにのみ保存）
+              <input id="photo" type="file" accept="image/*" />
+            </label>
+            <div class="help">※安全のため、初期は匿名・顔非公開を推奨します</div>
+          </div>
+          <div>
+            <label>メモ（任意・企業には非公開）
+              <textarea id="note" placeholder="例）夜間のみ対応可／守秘義務の都合で社名は非公開 など"></textarea>
+            </label>
+          </div>
+        </div>
 
-        <div class="row">
-          <div>
-            <label>プロフィール画像（任意・ローカルにのみ保存）
-              <input id="photo" type="file" accept="image/*" />
-            </label>
-            <div class="help">※安全のため、初期は匿名・顔非公開を推奨します</div>
-          </div>
-          <div>
-            <label>メモ（任意・企業には非公開）
-              <textarea id="note" placeholder="例）夜間のみ対応可／守秘義務の都合で社名は非公開 など"></textarea>
-            </label>
-          </div>
-        </div>
+        <div class="btns">
+          <button type="submit" class="btn primary" id="saveBtn">保存する</button>
+          <button type="button" class="btn" id="resetBtn">フォーム初期化</button>
+          <span class="badge">データはブラウザにのみ保存（最大約5MB）</span>
+        </div>
+      </form>
+    </section>
+  </main>
 
-        <div class="btns">
-          <button type="submit" class="btn primary" id="saveBtn">保存する</button>
-          <button type="button" class="btn" id="resetBtn">フォーム初期化</button>
-          <span class="badge">データはブラウザにのみ保存（最大約5MB）</span>
-        </div>
-      </form>
-    </section>
-  </main>
+  <div class="container" style="color:#6b7280;font-size:12px;margin:16px 0 24px">
+    <p>⚖️ 注意：このデモは学習用です。実運用では <strong>差別的条件（性別・年齢等）の入力・表示禁止</strong>、本人確認と通報/停止フロー、プライバシーポリシー等の整備が必要です。</p>
+  </div>
 
-  <div class="container footer">
-    <p>⚖️ 注意：このデモは学習用です。実運用では <strong>差別的条件（性別・年齢等）の入力・表示禁止</strong>、本人確認と通報/停止フロー、プライバシーポリシー等の整備が必要です。</p>
-  </div>
+  <script>
+    // ===== Utility: Tag Input handling =====
+    function setupTagInput(inputEl, listEl){
+      const add = (val)=>{
+        const v = (val||'').trim();
+        if(!v) return; if(hasTag(listEl, v)) return;
+        const chip = document.createElement('span');
+        chip.className='chip'; chip.dataset.val=v;
+        chip.innerHTML = \`\${escapeHtml(v)} <button title="削除">✕</button>\`;
+        chip.querySelector('button').addEventListener('click',()=> chip.remove());
+        listEl.appendChild(chip); inputEl.value='';
+      };
+      inputEl.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===','){ e.preventDefault(); add(inputEl.value); }
+        if(e.key==='Backspace' && !inputEl.value && listEl.lastElementChild){ listEl.lastElementChild.remove(); }
+      });
+      inputEl.addEventListener('blur', ()=> add(inputEl.value));
+      return { add, values:()=>[...listEl.querySelectorAll('.chip')].map(c=>c.dataset.val) };
+    }
+    function hasTag(listEl, v){ return !![...listEl.querySelectorAll('.chip')].find(c=>c.dataset.val.toLowerCase()===v.toLowerCase()) }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      })[s]);
+    }
 
-  <script>
-    // ===== Utility: Tag Input handling (説明表記はカットしつつ動きは維持) =====
-    function setupTagInput(inputEl, listEl){
-      const add = (val)=>{
-        const v = (val||'').trim();
-        if(!v) return; if(hasTag(listEl, v)) return;
-        const chip = document.createElement('span');
-        chip.className='chip'; chip.dataset.val=v;
-        chip.innerHTML = \`\${escapeHtml(v)} <button title="削除">✕</button>\`;
-        chip.querySelector('button').addEventListener('click',()=> chip.remove());
-        listEl.appendChild(chip); inputEl.value='';
-      };
-      inputEl.addEventListener('keydown', e=>{
-        if(e.key==='Enter' || e.key===','){ e.preventDefault(); add(inputEl.value); }
-        if(e.key==='Backspace' && !inputEl.value && listEl.lastElementChild){ listEl.lastElementChild.remove(); }
-      });
-      inputEl.addEventListener('blur', ()=> add(inputEl.value));
-      return { add, values:()=>[...listEl.querySelectorAll('.chip')].map(c=>c.dataset.val) };
-    }
-    function hasTag(listEl, v){ return !![...listEl.querySelectorAll('.chip')].find(c=>c.dataset.val.toLowerCase()===v.toLowerCase()) }
-    function escapeHtml(str){ return str.replace(/[&<>"]/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;"}[s])); }
+    // ===== Image compress to DataURL =====
+    async function fileToDataUrl(file, maxW=512){
+      if(!file) return '';
+      const img = new Image();
+      const reader = new FileReader();
+      const loaded = new Promise((res,rej)=>{
+        reader.onload=()=>{ img.src=reader.result; img.onload=()=>res(); img.onerror=rej; };
+        reader.onerror=rej;
+      });
+      reader.readAsDataURL(file); await loaded;
+      const scale = Math.min(1, maxW / img.width);
+      const w = Math.max(1, Math.round(img.width*scale)); const h = Math.max(1, Math.round(img.height*scale));
+      const canvas = document.createElement('canvas'); canvas.width=w; canvas.height=h; const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,w,h);
+      return canvas.toDataURL('image/jpeg', 0.8);
+    }
 
-    // ===== Image compress to DataURL =====
-    async function fileToDataUrl(file, maxW=512){
-      if(!file) return '';
-      const img = new Image();
-      const reader = new FileReader();
-      const loaded = new Promise((res,rej)=>{
-        reader.onload=()=>{ img.src=reader.result; img.onload=()=>res(); img.onerror=rej; };
-        reader.onerror=rej;
-      });
-      reader.readAsDataURL(file); await loaded;
-      const scale = Math.min(1, maxW / img.width);
-      const w = Math.max(1, Math.round(img.width*scale)); const h = Math.max(1, Math.round(img.height*scale));
-      const canvas = document.createElement('canvas'); canvas.width=w; canvas.height=h; const ctx=canvas.getContext('2d');
-      ctx.drawImage(img,0,0,w,h);
-      return canvas.toDataURL('image/jpeg', 0.8);
-    }
+    // ===== LocalStorage persistence =====
+    const KEY='hc_profiles_v1';
+    const load = ()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'[]') }catch(e){ return [] } };
+    const saveAll = (arr)=> localStorage.setItem(KEY, JSON.stringify(arr));
 
-    // ===== LocalStorage persistence =====
-    const KEY='hc_profiles_v1';
-    const load = ()=>{ try{ return JSON.parse(localStorage.getItem(KEY)||'[]') }catch(e){ return [] } };
-    const saveAll = (arr)=> localStorage.setItem(KEY, JSON.stringify(arr));
+    // ===== Form wiring =====
+    const form = document.getElementById('profileForm');
+    const nickname = document.getElementById('nickname');
+    const headline = document.getElementById('headline');
+    const university = document.getElementById('university');
+    const rolesList = document.getElementById('roles');
+    const industriesList = document.getElementById('industries');
+    const achievements = document.getElementById('achievements');
+    const expMin = document.getElementById('expMin');
+    const expMax = document.getElementById('expMax');
+    const hours = document.getElementById('hours');
+    const workStyle = document.getElementById('workStyle');
+    const locationPref = document.getElementById('locationPref');
+    const compMin = document.getElementById('compMin');
+    const compMax = document.getElementById('compMax');
+    const currency = document.getElementById('currency');
+    const linkWrap = document.getElementById('links');
+    const note = document.getElementById('note');
+    const photo = document.getElementById('photo');
 
-    // ===== Form wiring =====
-    const form = document.getElementById('profileForm');
-    const nickname = document.getElementById('nickname');
-    const headline = document.getElementById('headline');
-    const university = document.getElementById('university');
-    const rolesList = document.getElementById('roles');
-    const industriesList = document.getElementById('industries');
-    const achievements = document.getElementById('achievements');
-    const expMin = document.getElementById('expMin');
-    const expMax = document.getElementById('expMax');
-    const hours = document.getElementById('hours');
-    const workStyle = document.getElementById('workStyle');
-    const locationPref = document.getElementById('locationPref');
-    const compMin = document.getElementById('compMin');
-    const compMax = document.getElementById('compMax');
-    const currency = document.getElementById('currency');
-    const linkWrap = document.getElementById('links');
-    const note = document.getElementById('note');
-    const photo = document.getElementById('photo');
+    const roleInput = setupTagInput(document.getElementById('roleInput'), rolesList);
+    const industryInput = setupTagInput(document.getElementById('industryInput'), industriesList);
+    const linkInput = setupTagInput(document.getElementById('linkInput'), linkWrap);
 
-    const roleInput = setupTagInput(document.getElementById('roleInput'), rolesList);
-    const industryInput = setupTagInput(document.getElementById('industryInput'), industriesList);
-    const linkInput = setupTagInput(document.getElementById('linkInput'), linkWrap);
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!nickname.value.trim() || !headline.value.trim()) return alert('ニックネームとひとことPRは必須です');
+      const roles = roleInput.values(); if(roles.length===0) return alert('担当ポジションを1つ以上追加してください');
+      const industries = industryInput.values(); if(industries.length===0) return alert('主な業界を1つ以上追加してください');
 
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      // Basic validation（スキル要件は削除）
-      if(!nickname.value.trim() || !headline.value.trim()) return alert('ニックネームとひとことPRは必須です');
-      const roles = roleInput.values(); if(roles.length===0) return alert('担当ポジションを1つ以上追加してください');
-      const industries = industryInput.values(); if(industries.length===0) return alert('主な業界を1つ以上追加してください');
+      const profiles = load();
+      const now = new Date().toISOString();
+      let dataUrl='';
+      if(photo.files && photo.files[0]){
+        try{ dataUrl = await fileToDataUrl(photo.files[0]); }catch{ alert('画像の読み込みに失敗しました'); }
+      }
 
-      const profiles = load();
-      const now = new Date().toISOString();
-      let dataUrl='';
-      if(photo.files && photo.files[0]){
-        try{ dataUrl = await fileToDataUrl(photo.files[0]); }catch{ alert('画像の読み込みに失敗しました'); }
-      }
+      const item = {
+        id: 'id_'+Math.random().toString(36).slice(2),
+        createdAt: now, updatedAt: now,
+        nickname: nickname.value.trim(),
+        headline: headline.value.trim(),
+        university: university.value.trim(),
+        roles, industries,
+        achievements: achievements.value.trim(),
+        expMin: toNum(expMin.value), expMax: toNum(expMax.value),
+        hours: toNum(hours.value),
+        workStyle: workStyle.value,
+        locationPref: locationPref.value.trim(),
+        compMin: toNum(compMin.value), compMax: toNum(compMax.value), currency: currency.value,
+        links: linkInput.values(),
+        note: note.value.trim(),
+        photo: dataUrl
+      };
 
-      const item = {
-        id: 'id_'+Math.random().toString(36).slice(2),
-        createdAt: now, updatedAt: now,
-        nickname: nickname.value.trim(),
-        headline: headline.value.trim(),
-        university: university.value.trim(),
-        roles, industries,
-        achievements: achievements.value.trim(),
-        expMin: toNum(expMin.value), expMax: toNum(expMax.value),
-        hours: toNum(hours.value),
-        workStyle: workStyle.value,
-        locationPref: locationPref.value.trim(),
-        compMin: toNum(compMin.value), compMax: toNum(compMax.value), currency: currency.value,
-        links: linkInput.values(),
-        note: note.value.trim(),
-        photo: dataUrl
-      };
+      profiles.unshift(item);
+      saveAll(profiles);
+      alert('保存しました（ブラウザに保存）');
+      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
+    });
 
-      profiles.unshift(item);
-      saveAll(profiles);
-      alert('保存しました（ブラウザに保存）');
-      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
-    });
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
+    });
 
-    document.getElementById('resetBtn').addEventListener('click', ()=>{
-      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
-    });
+    function toNum(v){ const n = parseFloat(v); return Number.isFinite(n)? n : null }
 
-    function toNum(v){ const n = parseFloat(v); return Number.isFinite(n)? n : null }
+    // Export / Import all
+    document.getElementById('exportBtn').addEventListener('click',()=>{
+      const data = JSON.stringify(load(), null, 2);
+      const blob = new Blob([data], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='profiles_export.json'; a.click(); URL.revokeObjectURL(url);
+    });
+    document.getElementById('importFile').addEventListener('change', async (e)=>{
+      const f = e.target.files[0]; if(!f) return; const text = await f.text();
+      try{
+        const arr = JSON.parse(text);
+        if(!Array.isArray(arr)) throw new Error('配列ではありません');
+        saveAll(arr); alert('読み込みました');
+      }catch(err){ alert('読み込み失敗: '+err.message) }
+      e.target.value='';
+    });
 
-    // Export / Import all
-    document.getElementById('exportBtn').addEventListener('click',()=>{
-      const data = JSON.stringify(load(), null, 2);
-      const blob = new Blob([data], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='profiles_export.json'; a.click(); URL.revokeObjectURL(url);
-    });
-    document.getElementById('importFile').addEventListener('change', async (e)=>{
-      const f = e.target.files[0]; if(!f) return; const text = await f.text();
-      try{
-        const arr = JSON.parse(text);
-        if(!Array.isArray(arr)) throw new Error('配列ではありません');
-        saveAll(arr); alert('読み込みました');
-      }catch(err){ alert('読み込み失敗: '+err.message) }
-      e.target.value='';
-    });
-
-    // Demo fill
-    document.getElementById('demoFill').addEventListener('click', ()=>{
-      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
-      nickname.value='Aki';
-      headline.value='元IR責任者｜上場準備・資本政策・PR/IR';
-      university.value='〇〇大学 経済学部';
-      ['PR/IR','戦略','採用支援'].forEach(v=> roleInput.add(v));
-      ['SaaS','フィンテック'].forEach(v=> industryInput.add(v));
-      achievements.value='シリーズBで10億円の資金調達を主導。上場審査で開示資料の整備を統括。';
-      expMin.value=7; expMax.value=12; hours.value=10; workStyle.value='remote'; locationPref.value='東京/名古屋/フルリモート';
-      compMin.value=8000; compMax.value=12000; currency.value='JPY';
-      ['https://example.com/portfolio','https://example.com/insta'].forEach(v=> linkInput.add(v));
-    });
-  </script>
+    // Demo fill
+    document.getElementById('demoFill').addEventListener('click', ()=>{
+      form.reset(); [rolesList, industriesList, linkWrap].forEach(el=>el.innerHTML='');
+      nickname.value='Aki';
+      headline.value='元IR責任者｜上場準備・資本政策・PR/IR';
+      university.value='〇〇大学 経済学部';
+      ['PR/IR','戦略','採用支援'].forEach(v=> roleInput.add(v));
+      ['SaaS','フィンテック'].forEach(v=> industryInput.add(v));
+      achievements.value='シリーズBで10億円の資金調達を主導。上場審査で開示資料の整備を統括。';
+      expMin.value=7; expMax.value=12; hours.value=10; workStyle.value='remote'; locationPref.value='東京/名古屋/フルリモート';
+      compMin.value=8000; compMax.value=12000; currency.value='JPY';
+      ['https://example.com/portfolio','https://example.com/insta'].forEach(v=> linkInput.add(v));
+    });
+  </script>
 </body>
 </html>
-
-
